@@ -22,7 +22,7 @@ class BlockMiner720i(ePICMake):
 
 
 class BlockMinerELITE1(ePICMake):
-    raw_model = MinerModel.EPIC.eLITE1
+    raw_model = MinerModel.EPIC.ELITE1
 
     expected_chips = 105
     expected_fans = 4
