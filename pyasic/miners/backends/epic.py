@@ -190,8 +190,9 @@ class ePIC(ePICFirmware):
         if web_network is not None:
             try:
                 for network in web_network:
-                    mac = web_network[network]["mac_address"]
-                    return mac
+                    if web_network[network] is not None:
+                        mac = web_network[network].get("mac_address")
+                        return mac
             except KeyError:
                 pass
 
@@ -365,7 +366,8 @@ class ePIC(ePICFirmware):
                         rate=float(hashrate), unit=self.algo.unit.MH
                     ).into(self.algo.unit.default)
                     hb_list[hb["Index"]].chips = num_of_chips
-                    hb_list[hb["Index"]].temp = int(hb["Temperature"])
+                    if hb_list[hb["Index"]].temp is not None:
+                        hb_list[hb["Index"]].temp = int(hb["Temperature"])
                     hb_list[hb["Index"]].tuned = tuned
                     hb_list[hb["Index"]].active = active
                     hb_list[hb["Index"]].voltage = hb["Input Voltage"]

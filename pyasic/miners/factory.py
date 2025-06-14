@@ -606,6 +606,7 @@ MINER_CLASSES = {
         "BLOCKMINER 520I": ePICBlockMiner520i,
         "BLOCKMINER 720I": ePICBlockMiner720i,
         "BLOCKMINER ELITE 1.0": ePICBlockMinerELITE1,
+        "BLOCKMINER MINI": ePICBlockMinerMini,
     },
     MinerTypes.HIVEON: {
         None: HiveonModern,
