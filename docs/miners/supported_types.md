@@ -782,6 +782,7 @@ details {
                     <li><a href="../blockminer/blockminer#blockminer-520i-epic">BlockMiner 520i (ePIC)</a></li>
                     <li><a href="../blockminer/blockminer#blockminer-720i-epic">BlockMiner 720i (ePIC)</a></li>
                     <li><a href="../blockminer/blockminer#blockminer-elite-1.0-epic">BlockMiner eLITE 1.0 (ePIC)</a></li>
+                    <li><a href="../blockminer/blockminer#blockminer-mini-epic">BlockMiner Mini (ePIC)</a></li>
                 </ul>
         </details>
     </ul>

@@ -40,3 +40,16 @@
         show_root_heading: false
         heading_level: 0
 
+## BlockMiner Mini (ePIC)
+
+- [x] Shutdowns
+- [ ] Power Modes
+- [ ] Setpoints
+- [ ] Presets
+
+::: pyasic.miners.blockminer.epic.blockminer.blockminer.ePICBlockMinerMini
+    handler: python
+    options:
+        show_root_heading: false
+        heading_level: 0
+

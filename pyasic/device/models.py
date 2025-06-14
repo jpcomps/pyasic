@@ -488,6 +488,7 @@ class ePICModels(MinerModelType):
     BM520i = "BlockMiner 520i"
     BM720i = "BlockMiner 720i"
     eLITE1 = "BlockMiner eLITE 1.0"
+    BMMini = "BlockMiner Mini"
     S19jProDual = "S19j Pro Dual"
     S19kProDual = "S19k Pro Dual"
 
