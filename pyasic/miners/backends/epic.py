@@ -366,7 +366,7 @@ class ePIC(ePICFirmware):
                         rate=float(hashrate), unit=self.algo.unit.MH
                     ).into(self.algo.unit.default)
                     hb_list[hb["Index"]].chips = num_of_chips
-                    if hb_list[hb["Index"]].temp is not None:
+                    if hb["Temperature"] is not None:
                         hb_list[hb["Index"]].temp = int(hb["Temperature"])
                     hb_list[hb["Index"]].tuned = tuned
                     hb_list[hb["Index"]].active = active
