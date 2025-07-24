@@ -788,6 +788,7 @@ details {
             <summary>X21 Series:</summary>
                 <ul>
                     <li><a href="../antminer/X21#s21-epic">S21 (ePIC)</a></li>
+                    <li><a href="../antminer/X21#s21_1-epic">S21+ (ePIC)</a></li>
                     <li><a href="../antminer/X21#s21-pro-epic">S21 Pro (ePIC)</a></li>
                     <li><a href="../antminer/X21#t21-epic">T21 (ePIC)</a></li>
                 </ul>
