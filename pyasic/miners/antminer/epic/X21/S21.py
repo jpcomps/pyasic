@@ -15,10 +15,14 @@
 # ------------------------------------------------------------------------------
 
 from pyasic.miners.backends import ePIC
-from pyasic.miners.device.models import S21, S21Pro
+from pyasic.miners.device.models import S21, S21Plus, S21Pro
 
 
 class ePICS21(ePIC, S21):
+    pass
+
+
+class ePICS21Plus(ePIC, S21Plus):
     pass
 
 
