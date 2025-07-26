@@ -79,6 +79,10 @@ ANTMINER_MODERN_DATA_LOC = DataLocations(
             "_get_hashboards",
             [],
         ),
+        str(DataOptions.WATTAGE): DataFunction(
+            "_get_wattage",
+            [RPCAPICommand("rpc_stats", "stats")],
+        ),
         str(DataOptions.IS_MINING): DataFunction(
             "_is_mining",
             [WebAPICommand("web_get_conf", "get_miner_conf")],
@@ -432,6 +436,19 @@ class AntminerModern(BMMiner):
             except LookupError:
                 pass
 
+    async def _get_wattage(self, rpc_stats: dict = None) -> Optional[int]:
+        if rpc_stats is None:
+            try:
+                rpc_stats = await self.rpc.stats()
+            except APIError:
+                pass
+
+        if rpc_stats is not None:
+            try:
+                return int(rpc_stats["STATS"][1]["watt"])
+            except LookupError:
+                pass
+
     async def _get_pools(self, rpc_pools: dict = None) -> List[PoolMetrics]:
         if rpc_pools is None:
             try:
@@ -621,7 +638,7 @@ class AntminerOld(CGMiner):
 
                 for fan in range(self.expected_fans):
                     fans_data[fan].speed = rpc_stats["STATS"][1].get(
-                        f"fan{fan_offset+fan}", 0
+                        f"fan{fan_offset + fan}", 0
                     )
             except LookupError:
                 pass
