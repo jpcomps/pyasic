@@ -334,8 +334,10 @@ class ePIC(ePICFirmware):
                     tuned = algo_info["VoltageOptimizer"].get("Optimized")
                 elif algo_info.get("BoardTune") is not None:
                     tuned = algo_info["BoardTune"].get("Optimized")
-                else:
+                elif algo_info.get("ChipTune") is not None:
                     tuned = algo_info["ChipTune"].get("Optimized")
+                else:
+                    tuned = algo_info["Power"].get("Optimized")
 
             # To be extra detailed, also ensure the miner is in "Mining" state
             tuned = tuned and web_summary["Status"]["Operating State"] == "Mining"
