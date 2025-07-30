@@ -81,7 +81,7 @@ ANTMINER_MODERN_DATA_LOC = DataLocations(
         ),
         str(DataOptions.WATTAGE): DataFunction(
             "_get_wattage",
-            [RPCAPICommand("rpc_stats", "stats")],
+            [WebAPICommand("web_stats", "stats")],
         ),
         str(DataOptions.IS_MINING): DataFunction(
             "_is_mining",
@@ -254,6 +254,19 @@ class AntminerModern(BMMiner):
             except LookupError:
                 pass
         return errors
+
+    async def _get_wattage(self, web_stats: dict = None) -> Optional[int]:
+        if web_stats is None:
+            try:
+                web_stats = await self.web.summary()
+            except APIError:
+                pass
+
+        if web_stats is not None:
+            try:
+                return int(web_stats["STATS"][0]["watt"])
+            except LookupError:
+                pass
 
     async def _get_hashboards(self) -> List[HashBoard]:
         if self.expected_hashboards is None:
@@ -433,19 +446,6 @@ class AntminerModern(BMMiner):
         if rpc_stats is not None:
             try:
                 return int(rpc_stats["STATS"][1]["Elapsed"])
-            except LookupError:
-                pass
-
-    async def _get_wattage(self, rpc_stats: dict = None) -> Optional[int]:
-        if rpc_stats is None:
-            try:
-                rpc_stats = await self.rpc.stats()
-            except APIError:
-                pass
-
-        if rpc_stats is not None:
-            try:
-                return int(rpc_stats["STATS"][1]["watt"])
             except LookupError:
                 pass
 
