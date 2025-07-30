@@ -302,6 +302,20 @@ class MiningModePowerTune(MinerConfigValue):
 
         return cfg
 
+    def as_epic(self) -> dict:
+        mode = {
+            "ptune": {
+                "algo": self.algo.as_epic(),
+                "target": self.power,
+            }
+        }
+        if self.scaling is not None:
+            if self.scaling.minimum is not None:
+                mode["ptune"]["min_throttle"] = self.scaling.minimum
+            if self.scaling.step is not None:
+                mode["ptune"]["throttle_step"] = self.scaling.step
+        return mode
+
     def as_auradine(self) -> dict:
         return {"mode": {"mode": "custom", "tune": "power", "power": self.power}}
 
@@ -569,24 +583,6 @@ class MiningModeManual(MinerConfigValue):
         }
         return cls(global_freq=freq, global_volt=voltage, boards=boards)
 
-    @classmethod
-    def from_epic(cls, epic_conf: dict) -> MiningModeManual:
-        voltage = 0
-        freq = 0
-        if epic_conf.get("HwConfig") is not None:
-            freq = epic_conf["HwConfig"]["Boards Target Clock"][0]["Data"]
-        if epic_conf.get("Power Supply Stats") is not None:
-            voltage = epic_conf["Power Supply Stats"]["Target Voltage"]
-        boards = {}
-        if epic_conf.get("HBs") is not None:
-            boards = {
-                board["Index"]: ManualBoardSettings(
-                    freq=board["Core Clock Avg"], volt=board["Input Voltage"]
-                )
-                for board in epic_conf["HBs"]
-            }
-        return cls(global_freq=freq, global_volt=voltage, boards=boards)
-
     def as_mara(self) -> dict:
         return {
             "mode": {
@@ -703,13 +699,34 @@ class MiningModeConfig(MinerConfigOption):
                         algo=TunerAlgo.board_tune(),
                         scaling=scaling_cfg,
                     )
-                else:
+                elif algo_info.get("ChipTune") is not None:
                     return cls.hashrate_tuning(
                         hashrate=algo_info["ChipTune"].get("Target"),
                         algo=TunerAlgo.chip_tune(),
                     )
+                elif algo_info.get("Power") is not None:
+                    return cls.power_tuning(
+                        power=algo_info["Power"].get("Target"),
+                        algo=TunerAlgo.power_tune(),
+                    )
+                else:
+                    return cls.default()
             else:
-                return cls.manual.from_epic(web_conf)
+                voltage = 0
+                freq = 0
+                if web_conf.get("HwConfig") is not None:
+                    freq = web_conf["HwConfig"]["Boards Target Clock"][0]["Data"]
+                if web_conf.get("Power Supply Stats") is not None:
+                    voltage = web_conf["Power Supply Stats"]["Target Voltage"]
+                boards = {}
+                if web_conf.get("HBs") is not None:
+                    boards = {
+                        board["Index"]: ManualBoardSettings(
+                            freq=board["Core Clock Avg"], volt=board["Input Voltage"]
+                        )
+                        for board in web_conf["HBs"]
+                    }
+                return cls.manual(global_freq=freq, global_volt=voltage, boards=boards)
         except KeyError:
             return cls.default()
 

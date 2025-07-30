@@ -788,6 +788,7 @@ details {
             <summary>X21 Series:</summary>
                 <ul>
                     <li><a href="../antminer/X21#s21-epic">S21 (ePIC)</a></li>
+                    <li><a href="../antminer/X21#s21-xp-epic">S21 XP (ePIC)</a></li>
                     <li><a href="../antminer/X21#s21_1-epic">S21+ (ePIC)</a></li>
                     <li><a href="../antminer/X21#s21-pro-epic">S21 Pro (ePIC)</a></li>
                     <li><a href="../antminer/X21#t21-epic">T21 (ePIC)</a></li>
@@ -799,6 +800,7 @@ details {
                     <li><a href="../blockminer/blockminer#blockminer-520i-epic">BlockMiner 520i (ePIC)</a></li>
                     <li><a href="../blockminer/blockminer#blockminer-720i-epic">BlockMiner 720i (ePIC)</a></li>
                     <li><a href="../blockminer/blockminer#blockminer-elite-1.0-epic">BlockMiner eLITE 1.0 (ePIC)</a></li>
+                    <li><a href="../blockminer/blockminer#blockminer-mini-epic">BlockMiner Mini (ePIC)</a></li>
                 </ul>
         </details>
     </ul>

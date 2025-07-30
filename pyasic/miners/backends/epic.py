@@ -190,8 +190,9 @@ class ePIC(ePICFirmware):
         if web_network is not None:
             try:
                 for network in web_network:
-                    mac = web_network[network]["mac_address"]
-                    return mac
+                    if web_network[network] is not None:
+                        mac = web_network[network].get("mac_address")
+                        return mac
             except KeyError:
                 pass
         return None
@@ -343,8 +344,10 @@ class ePIC(ePICFirmware):
                     tuned = algo_info["VoltageOptimizer"].get("Optimized")
                 elif algo_info.get("BoardTune") is not None:
                     tuned = algo_info["BoardTune"].get("Optimized")
-                else:
+                elif algo_info.get("ChipTune") is not None:
                     tuned = algo_info["ChipTune"].get("Optimized")
+                else:
+                    tuned = algo_info["Power"].get("Optimized")
 
             # To be extra detailed, also ensure the miner is in "Mining" state
             tuned = tuned and web_summary["Status"]["Operating State"] == "Mining"
@@ -376,7 +379,8 @@ class ePIC(ePICFirmware):
                         unit=self.algo.unit.MH,  # type: ignore[attr-defined]
                     ).into(self.algo.unit.default)  # type: ignore[attr-defined]
                     hb_list[hb["Index"]].chips = num_of_chips
-                    hb_list[hb["Index"]].temp = int(hb["Temperature"])
+                    if hb["Temperature"] is not None:
+                        hb_list[hb["Index"]].temp = int(hb["Temperature"])
                     hb_list[hb["Index"]].tuned = tuned
                     hb_list[hb["Index"]].active = active
                     hb_list[hb["Index"]].voltage = hb["Input Voltage"]

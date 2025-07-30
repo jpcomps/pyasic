@@ -14,5 +14,5 @@
 #  limitations under the License.                                              -
 # ------------------------------------------------------------------------------
 
-from .S21 import ePICS21, ePICS21Plus, ePICS21Pro
+from .S21 import ePICS21, ePICS21Plus, ePICS21Pro, ePICS21XP
 from .T21 import ePICT21
