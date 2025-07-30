@@ -287,6 +287,20 @@ class MiningModePowerTune(MinerConfigValue):
 
         return cfg
 
+    def as_epic(self) -> dict:
+        mode = {
+            "ptune": {
+                "algo": self.algo.as_epic(),
+                "target": self.power,
+            }
+        }
+        if self.scaling is not None:
+            if self.scaling.minimum is not None:
+                mode["ptune"]["min_throttle"] = self.scaling.minimum
+            if self.scaling.step is not None:
+                mode["ptune"]["throttle_step"] = self.scaling.step
+        return mode
+
     def as_auradine(self) -> dict:
         return {"mode": {"mode": "custom", "tune": "power", "power": self.power}}
 
@@ -673,11 +687,18 @@ class MiningModeConfig(MinerConfigOption):
                         algo=TunerAlgo.board_tune(),
                         scaling=scaling_cfg,
                     )
-                else:
+                elif algo_info.get("ChipTune") is not None:
                     return cls.hashrate_tuning(
                         hashrate=algo_info["ChipTune"].get("Target"),
                         algo=TunerAlgo.chip_tune(),
                     )
+                elif algo_info.get("Power") is not None:
+                    return cls.power_tuning(
+                        power=algo_info["Power"].get("Target"),
+                        algo=TunerAlgo.power_tune(),
+                    )
+                else:
+                    return MiningModeManual.from_epic(web_conf)
             else:
                 return MiningModeManual.from_epic(web_conf)
         except KeyError:
