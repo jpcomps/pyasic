@@ -79,10 +79,6 @@ ANTMINER_MODERN_DATA_LOC = DataLocations(
             "_get_hashboards",
             [],
         ),
-        str(DataOptions.WATTAGE): DataFunction(
-            "_get_wattage",
-            [WebAPICommand("web_stats", "stats")],
-        ),
         str(DataOptions.IS_MINING): DataFunction(
             "_is_mining",
             [WebAPICommand("web_get_conf", "get_miner_conf")],
@@ -254,19 +250,6 @@ class AntminerModern(BMMiner):
             except LookupError:
                 pass
         return errors
-
-    async def _get_wattage(self, web_stats: dict = None) -> Optional[int]:
-        if web_stats is None:
-            try:
-                web_stats = await self.web.summary()
-            except APIError:
-                pass
-
-        if web_stats is not None:
-            try:
-                return int(web_stats["STATS"][0]["watt"])
-            except LookupError:
-                pass
 
     async def _get_hashboards(self) -> List[HashBoard]:
         if self.expected_hashboards is None:
