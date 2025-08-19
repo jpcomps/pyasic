@@ -33,7 +33,7 @@ class BlockMinerELITE1(ePICMake):
 class BlockMinerMini(ePICMake):
     raw_model = MinerModel.EPIC.BMMini
 
-    expected_chips = 18
+    expected_chips = 12
     expected_fans = 1
     expected_hashboards = 4
     algo = MinerAlgo.SHA256
