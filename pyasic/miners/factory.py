@@ -626,6 +626,7 @@ MINER_CLASSES: dict[MinerTypes, dict[str | None, Any]] = {
         "BLOCKMINER 720I": ePICBlockMiner720i,
         "BLOCKMINER ELITE 1.0": ePICBlockMinerELITE1,
         "BLOCKMINER MINI": ePICBlockMinerMini,
+        "VOLCMINERD1": ePICVolcMinerD1,
     },
     MinerTypes.HIVEON: {
         None: HiveonModern,

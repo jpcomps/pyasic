@@ -803,6 +803,12 @@ details {
                     <li><a href="../blockminer/blockminer#blockminer-mini-epic">BlockMiner Mini (ePIC)</a></li>
                 </ul>
         </details>
+        <details>
+            <summary>DX Series:</summary>
+                <ul>
+                    <li><a href="../volcminer/DX#d1-epic">D1 (ePIC)</a></li>
+                </ul>
+        </details>
     </ul>
 </details>
 <details>
