@@ -34,11 +34,19 @@ class ChipTuneAlgo(MinerConfigValue):
         return "ChipTune"
 
 
+class PowerTuneAlgo(MinerConfigValue):
+    mode: str = field(init=False, default="power_tune")
+
+    def as_epic(self) -> str:
+        return "Power"
+
+
 class TunerAlgo(MinerConfigOption):
     standard = StandardTuneAlgo
     voltage_optimizer = VOptAlgo
     board_tune = BoardTuneAlgo
     chip_tune = ChipTuneAlgo
+    power_tune = PowerTuneAlgo
 
     @classmethod
     def default(cls) -> StandardTuneAlgo:
@@ -62,5 +70,5 @@ class TunerAlgo(MinerConfigOption):
 
 TunerAlgoType = TypeVar(
     "TunerAlgoType",
-    bound=StandardTuneAlgo | VOptAlgo | BoardTuneAlgo | ChipTuneAlgo,
+    bound=StandardTuneAlgo | VOptAlgo | BoardTuneAlgo | ChipTuneAlgo | PowerTuneAlgo,
 )

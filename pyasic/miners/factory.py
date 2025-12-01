@@ -616,6 +616,8 @@ MINER_CLASSES: dict[MinerTypes, dict[str | None, Any]] = {
         "ANTMINER S19K PRO": ePICS19kPro,
         "ANTMINER S19 XP": ePICS19XP,
         "ANTMINER S21": ePICS21,
+        "ANTMINER S21 XP": ePICS21XP,
+        "ANTMINER S21+": ePICS21Plus,
         "ANTMINER S21 PRO": ePICS21Pro,
         "ANTMINER T21": ePICT21,
         "ANTMINER S19J PRO DUAL": ePICS19jProDual,
@@ -623,6 +625,8 @@ MINER_CLASSES: dict[MinerTypes, dict[str | None, Any]] = {
         "BLOCKMINER 520I": ePICBlockMiner520i,
         "BLOCKMINER 720I": ePICBlockMiner720i,
         "BLOCKMINER ELITE 1.0": ePICBlockMinerELITE1,
+        "BLOCKMINER MINI": ePICBlockMinerMini,
+        "VOLCMINERD1": ePICVolcMinerD1,
     },
     MinerTypes.HIVEON: {
         None: HiveonModern,
