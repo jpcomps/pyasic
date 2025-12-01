@@ -38,6 +38,7 @@ from pyasic.web.braiins_os.proto.braiins.bos.v1 import (
 from .algo import (
     BoardTuneAlgo,
     ChipTuneAlgo,
+    PowerTuneAlgo,
     StandardTuneAlgo,
     TunerAlgo,
     TunerAlgoType,
@@ -208,8 +209,8 @@ class MiningModePowerTune(MinerConfigValue):
 
     mode: str = field(init=False, default="power_tuning")
     power: int | None = None
-    algo: StandardTuneAlgo | VOptAlgo | BoardTuneAlgo | ChipTuneAlgo = field(
-        default_factory=TunerAlgo.default
+    algo: StandardTuneAlgo | VOptAlgo | BoardTuneAlgo | ChipTuneAlgo | PowerTuneAlgo = (
+        field(default_factory=TunerAlgo.default)
     )
     scaling: ScalingConfig | None = None
 
