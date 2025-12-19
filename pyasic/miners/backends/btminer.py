@@ -15,6 +15,7 @@
 # ------------------------------------------------------------------------------
 import asyncio
 import logging
+from typing import Optional
 
 import aiofiles
 import semver
@@ -630,8 +631,8 @@ class BTMinerV2(StockFirmware):
         return errors  # type: ignore[return-value]
 
     async def _get_serial_number(
-        self, rpc_get_miner_info: dict = None
-    ) -> Optional[str]:
+        self, rpc_get_miner_info: dict | None = None
+    ) -> str | None:
         if rpc_get_miner_info is None:
             try:
                 rpc_get_miner_info = await self.rpc.get_miner_info()
@@ -640,7 +641,7 @@ class BTMinerV2(StockFirmware):
 
         if rpc_get_miner_info is not None:
             try:
-                return rpc_summary["Msg"]["minersn"]
+                return rpc_get_miner_info["Msg"]["minersn"]
             except LookupError:
                 pass
         return None
@@ -1126,8 +1127,8 @@ class BTMinerV3(StockFirmware):
         return [Fan(speed=rpm)] if rpm is not None else []
 
     async def _get_serial_number(
-        self, rpc_get_device_info: dict = None
-    ) -> Optional[str]:
+        self, rpc_get_device_info: dict | None = None
+    ) -> str | None:
         if rpc_get_device_info is None:
             try:
                 rpc_get_device_info = await self.rpc.get_device_info()
